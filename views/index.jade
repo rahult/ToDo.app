@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Todo App
+  p Welcome to my todo App
+  ul
+    each task in tasks
+      li #{task.task} #{task.completed}
+    li
+      form(method="post")
+        input(type="text", name="task", value="Task #{tasks.length}", autofocus)
+        input(type="submit", name="submit")
