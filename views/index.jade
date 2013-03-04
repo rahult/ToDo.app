@@ -4,9 +4,17 @@ block content
   h1 Todo App
   p Welcome to my todo App
   ul
-    each task in tasks
-      li #{task.task} #{task.completed}
+    each task, i in tasks
+      li
+        form(method="post", action="/tasks/#{i}")
+          - if (task.completed)
+            input(type="checkbox", name="completed", id="task_#{i}_completed", checked)
+          - else
+            input(type="checkbox", name="completed", id="task_#{i}_completed")
+          label(for="task_#{i}_completed") #{task.task}
+          input(type="hidden", name="_method", value="put")
+          input(type="submit", name="update")
     li
-      form(method="post")
+      form(method="post", action="/tasks/new")
         input(type="text", name="task", value="Task #{tasks.length}", autofocus)
         input(type="submit", name="submit")
